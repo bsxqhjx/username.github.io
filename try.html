@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炫酷课表</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .week-selector {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .course {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .course:hover {
+            background-color: #45a049;
+        }
+
+        .course[data-week="2"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>我的课表</h1>
+        <div class="week-selector">
+            <button id="prevWeek">上一周</button>
+            <span id="currentWeek">第1周</span>
+            <button id="nextWeek">下一周</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>上午</td>
+                    <td><div class="course" data-week="1">数学</div><div class="course" data-week="2">英语</div></td>
+                    <td><div class="course" data-week="1">物理</div><div class="course" data-week="2">化学</div></td>
+                    <td><div class="course" data-week="1">体育</div><div class="course" data-week="2">美术</div></td>
+                    <td><div class="course" data-week="1">历史</div><div class="course" data-week="2">地理</div></td>
+                    <td><div class="course" data-week="1">政治</div><div class="course" data-week="2">生物</div></td>
+                </tr>
+                <tr>
+                    <td>下午</td>
+                    <td><div class="course" data-week="1">英语</div><div class="course" data-week="2">数学</div></td>
+                    <td><div class="course" data-week="1">化学</div><div class="course" data-week="2">物理</div></td>
+                    <td><div class="course" data-week="1">美术</div><div class="course" data-week="2">体育</div></td>
+                    <td><div class="course" data-week="1">地理</div><div class="course" data-week="2">历史</div></td>
+                    <td><div class="course" data-week="1">生物</div><div class="course" data-week="2">政治</div></td>
+                </tr>
+                <tr>
+                    <td>晚上</td>
+                    <td><div class="course" data-week="1">自习</div><div class="course" data-week="2">自习</div></td>
+                    <td><div class="course" data-week="1">自习</div><div class="course" data-week="2">自习</div></td>
+                    <td><div class="course" data-week="1">自习</div><div class="course" data-week="2">自习</div></td>
+                    <td><div class="course" data-week="1">自习</div><div class="course" data-week="2">自习</div></td>
+                    <td><div class="course" data-week="1">自习</div><div class="course" data-week="2">自习</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const prevWeekBtn = document.getElementById('prevWeek');
+        const nextWeekBtn = document.getElementById('nextWeek');
+        const currentWeekSpan = document.getElementById('currentWeek');
+        const courses = document.querySelectorAll('.course');
+
+        let currentWeek = 1;
+
+        prevWeekBtn.addEventListener('click', () => {
+            if (currentWeek > 1) {
+                currentWeek--;
+                updateWeek();
+            }
+        });
+
+        nextWeekBtn.addEventListener('click', () => {
+            if (currentWeek < 2) {
+                currentWeek++;
+                updateWeek();
+            }
+        });
+
+        function updateWeek() {
+            currentWeekSpan.textContent = `第${currentWeek}周`;
+            courses.forEach(course => {
+                if (course.getAttribute('data-week') == currentWeek) {
+                    course.style.display = 'block';
+                } else {
+                    course.style.display = 'none';
+                }
+            });
+        }
+
+        courses.forEach(course => {
+            course.addEventListener('click', () => {
+                alert(`你点击了${course.textContent}课程`);
+            });
+        });
+    </script>
+</body>
+</html>
